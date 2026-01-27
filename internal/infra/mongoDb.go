@@ -4,10 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
+	"log/slog"
 	"os"
 	"time"
 
+	"github.com/Kenji-Uema/mongodbBootstrap/internal/config"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -19,17 +20,20 @@ type MongoDb struct {
 	database *mongo.Database
 }
 
-func NewMongoDb(connectionContext context.Context, uri, dbName string) (*MongoDb, error) {
-	connectionContext, connectionCancel := context.WithTimeout(connectionContext, 10*time.Second)
+func NewMongoDb(ctx context.Context) (*MongoDb, error) {
+	mongoConfig := config.LoadConfig[config.MongoConfig]()
+	uri := fmt.Sprintf("mongodb://%s:%s@%s", mongoConfig.Username, mongoConfig.Password, mongoConfig.Host)
+
+	ctx, connectionCancel := context.WithTimeout(ctx, 10*time.Second)
 	defer connectionCancel()
 
-	client, err := mongo.Connect(connectionContext, options.Client().ApplyURI(uri))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(uri))
 
 	if err != nil {
 		return nil, err
 	}
 
-	databaseContext, databaseCancel := context.WithTimeout(connectionContext, 5*time.Second)
+	databaseContext, databaseCancel := context.WithTimeout(ctx, 5*time.Second)
 	defer databaseCancel()
 
 	if err := client.Ping(databaseContext, readpref.Primary()); err != nil {
@@ -37,14 +41,14 @@ func NewMongoDb(connectionContext context.Context, uri, dbName string) (*MongoDb
 		return nil, fmt.Errorf("mongo ping failed for URI: %s, error: %w", uri, err)
 	}
 
-	return &MongoDb{client: client, database: client.Database(dbName)}, nil
+	return &MongoDb{client: client, database: client.Database(mongoConfig.Database)}, nil
 }
 
 func (db *MongoDb) NewCollection(name string) *mongo.Collection {
 	return db.Collection(name)
 }
 
-func SetIndex(collection *mongo.Collection, fieldName string) {
+func SetIndex(collection *mongo.Collection, fieldName string) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
@@ -55,8 +59,9 @@ func SetIndex(collection *mongo.Collection, fieldName string) {
 
 	_, err := collection.Indexes().CreateOne(ctx, idx)
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("failed to create index %q: %w", fieldName, err)
 	}
+	return nil
 }
 
 func (db *MongoDb) Close(ctx context.Context) error {
@@ -67,34 +72,41 @@ func (db *MongoDb) Collection(name string) *mongo.Collection {
 	return db.database.Collection(name)
 }
 
-func (db *MongoDb) DropAll(ctx context.Context) {
+func (db *MongoDb) DropAll(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 
 	err := db.database.Drop(ctx)
 
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("failed to drop database: %w", err)
 	}
-	fmt.Println("Database dropped")
+	slog.Info("database dropped")
+	return nil
 }
 
-func Seed[I interface{}](collection *mongo.Collection, filepath string) {
+func Seed[I interface{}](ctx context.Context, collection *mongo.Collection, filepath string) error {
 	data, err := os.ReadFile(filepath)
 	if err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("failed to read seed file %q: %w", filepath, err)
 	}
 
 	var items []I
 	if err := json.Unmarshal(data, &items); err != nil {
-		log.Fatal(err)
+		return fmt.Errorf("failed to unmarshal seed data %q: %w", filepath, err)
 	}
 
 	docs := make([]interface{}, len(items))
 	for i, g := range items {
 		docs[i] = g
 	}
-	if _, err := collection.InsertMany(context.Background(), docs); err != nil {
-		log.Fatal(err)
+
+	seedCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	defer cancel()
+
+	if _, err := collection.InsertMany(seedCtx, docs); err != nil {
+		return fmt.Errorf("failed to insert seed data %q: %w", filepath, err)
 	}
+
+	return nil
 }

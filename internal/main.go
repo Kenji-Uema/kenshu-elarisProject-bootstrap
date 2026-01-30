@@ -78,5 +78,6 @@ func main() {
 	exitOnError("seed cottage", err)
 
 	jobDuration := time.Since(startTime)
+	slog.Info("Bootstrap complete", "duration", jobDuration)
 	telemetry.JobDurationHistogram.Record(baseCtx, jobDuration.Milliseconds())
 }

@@ -7,11 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Kenji-Uema/mongodbBootstrap/internal/config"
+	"github.com/Kenji-Uema/bootstrap/internal/config"
 )
 
-func BootStrapPhotos() error {
-	photosVolumeConfig := config.LoadConfig[config.PhotosVolumeConfig]()
+func BootstrapPhotos(photosVolumeConfig config.PhotosVolumeConfig) error {
 	volumePath := filepath.Clean(photosVolumeConfig.Path)
 	imagesDir := filepath.Join("resources", "images")
 

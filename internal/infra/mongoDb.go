@@ -8,20 +8,19 @@ import (
 	"os"
 	"time"
 
-	"github.com/Kenji-Uema/mongodbBootstrap/internal/config"
+	"github.com/Kenji-Uema/bootstrap/internal/config"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
-type MongoDb struct {
+type MongoDB struct {
 	client   *mongo.Client
 	database *mongo.Database
 }
 
-func NewMongoDb(ctx context.Context) (*MongoDb, error) {
-	mongoConfig := config.LoadConfig[config.MongoConfig]()
+func NewMongoDB(ctx context.Context, mongoConfig config.MongoConfig) (*MongoDB, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s", mongoConfig.Username, mongoConfig.Password, mongoConfig.Host)
 
 	ctx, connectionCancel := context.WithTimeout(ctx, 10*time.Second)
@@ -37,19 +36,21 @@ func NewMongoDb(ctx context.Context) (*MongoDb, error) {
 	defer databaseCancel()
 
 	if err := client.Ping(databaseContext, readpref.Primary()); err != nil {
-		_ = client.Disconnect(context.Background())
+		disconnectCtx, disconnectCancel := context.WithTimeout(ctx, 5*time.Second)
+		defer disconnectCancel()
+		_ = client.Disconnect(disconnectCtx)
 		return nil, fmt.Errorf("mongo ping failed for URI: %s, error: %w", uri, err)
 	}
 
-	return &MongoDb{client: client, database: client.Database(mongoConfig.Database)}, nil
+	return &MongoDB{client: client, database: client.Database(mongoConfig.Database)}, nil
 }
 
-func (db *MongoDb) NewCollection(name string) *mongo.Collection {
+func (db *MongoDB) NewCollection(name string) *mongo.Collection {
 	return db.Collection(name)
 }
 
-func SetIndex(collection *mongo.Collection, fieldName string) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+func SetIndex(ctx context.Context, collection *mongo.Collection, fieldName string) error {
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	idx := mongo.IndexModel{
@@ -64,15 +65,15 @@ func SetIndex(collection *mongo.Collection, fieldName string) error {
 	return nil
 }
 
-func (db *MongoDb) Close(ctx context.Context) error {
+func (db *MongoDB) Close(ctx context.Context) error {
 	return db.client.Disconnect(ctx)
 }
 
-func (db *MongoDb) Collection(name string) *mongo.Collection {
+func (db *MongoDB) Collection(name string) *mongo.Collection {
 	return db.database.Collection(name)
 }
 
-func (db *MongoDb) DropAll(ctx context.Context) error {
+func (db *MongoDB) DropAll(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
 	defer cancel()
 

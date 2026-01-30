@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	meter                = otel.Meter("clock-emulator")
+	meter                = otel.Meter("bootstrap")
 	JobDurationHistogram metric.Int64Histogram
 )
 

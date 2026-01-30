@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/Kenji-Uema/mongodbBootstrap/internal/config"
+	"github.com/Kenji-Uema/bootstrap/internal/config"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -17,9 +17,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 )
 
-func Init(ctx context.Context) (func(context.Context) error, error) {
-	telemetryConfig := config.LoadConfig[config.TelemetryConfig]()
-	appConfig := config.LoadConfig[config.AppConfig]()
+func Init(ctx context.Context, appConfig config.AppConfig, telemetryConfig config.TelemetryConfig) (func(context.Context) error, error) {
 
 	otelResource, err := resource.New(ctx,
 		resource.WithTelemetrySDK(),

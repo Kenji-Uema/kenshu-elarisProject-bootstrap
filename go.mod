@@ -1,13 +1,11 @@
 module github.com/Kenji-Uema/bootstrap
 
-go 1.24.0
-
-toolchain go1.24.1
+go 1.25.6
 
 require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/google/uuid v1.6.0
-	go.mongodb.org/mongo-driver v1.17.7
+	go.mongodb.org/mongo-driver/v2 v2.5.0
 	go.opentelemetry.io/otel v1.39.0
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.39.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.39.0
@@ -21,10 +19,8 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/golang/snappy v1.0.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.6 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.7 // indirect
 	github.com/klauspost/compress v1.18.3 // indirect
-	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.2.0 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect

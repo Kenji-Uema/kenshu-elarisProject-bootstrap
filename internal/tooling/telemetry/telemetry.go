@@ -3,6 +3,7 @@ package telemetry
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"time"
 
@@ -96,7 +97,7 @@ func newMeterProvider(ctx context.Context, otelResource *resource.Resource, cfg 
 
 func otelTraceOptions(cfg config.TelemetryConfig) []otlptracegrpc.Option {
 	opts := []otlptracegrpc.Option{
-		otlptracegrpc.WithEndpoint(cfg.OTLPEndpoint),
+		otlptracegrpc.WithEndpoint(fmt.Sprintf("%s:%d", cfg.OTLPEndpoint, cfg.OTLPGrpcPort)),
 	}
 	if cfg.OTLPInsecure {
 		opts = append(opts, otlptracegrpc.WithInsecure())
@@ -106,7 +107,7 @@ func otelTraceOptions(cfg config.TelemetryConfig) []otlptracegrpc.Option {
 
 func otelMetricOptions(cfg config.TelemetryConfig) []otlpmetricgrpc.Option {
 	opts := []otlpmetricgrpc.Option{
-		otlpmetricgrpc.WithEndpoint(cfg.OTLPEndpoint),
+		otlpmetricgrpc.WithEndpoint(fmt.Sprintf("%s:%d", cfg.OTLPEndpoint, cfg.OTLPGrpcPort)),
 	}
 	if cfg.OTLPInsecure {
 		opts = append(opts, otlpmetricgrpc.WithInsecure())

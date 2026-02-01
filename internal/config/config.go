@@ -19,9 +19,9 @@ type MongoConfig struct {
 }
 
 type TelemetryConfig struct {
-	OTLPEndpoint   string `env:"OTEL_EXPORTER_OTLP_ENDPOINT" required:"true"`
-	OTLPInsecure   bool   `env:"OTEL_EXPORTER_OTLP_INSECURE" required:"true"`
-	HealthEndpoint string `env:"OTEL_EXPORTER_OTLP_HEALTH_ENDPOINT" required:"true"`
+	OTLPEndpoint string `env:"OTEL_EXPORTER_OTLP_ENDPOINT" required:"true"`
+	OTLPGrpcPort int    `env:"OTEL_EXPORTER_OTLP_GRPC_PORT" required:"true"`
+	OTLPInsecure bool   `env:"OTEL_EXPORTER_OTLP_INSECURE" required:"true"`
 }
 
 type PhotosVolumeConfig struct {

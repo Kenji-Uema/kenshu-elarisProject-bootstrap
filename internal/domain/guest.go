@@ -1,6 +1,10 @@
 package domain
 
-import "go.mongodb.org/mongo-driver/v2/bson"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/v2/bson"
+)
 
 type Guest struct {
 	Id         bson.ObjectID `bson:"_id,omitempty"`
@@ -8,4 +12,6 @@ type Guest struct {
 	GivenNames string        `bson:"given_names"`
 	Surname    string        `bson:"surname"`
 	Email      string        `bson:"email"`
+	CreatedAt  time.Time     `bson:"created_at"`
+	LastUpdate time.Time     `bson:"last_update"`
 }

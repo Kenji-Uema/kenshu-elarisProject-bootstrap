@@ -18,7 +18,6 @@ type Cottage struct {
 
 type CottageDetails struct {
 	Description          string `bson:"description"`
-	View                 string `bson:"view"`
 	FurnitureDescription string `bson:"furniture_description"`
 	BathroomDescription  string `bson:"bathroom_description"`
 	AmenitiesDescription string `bson:"amenities_description"`

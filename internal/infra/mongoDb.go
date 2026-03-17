@@ -21,7 +21,7 @@ type MongoDB struct {
 }
 
 func NewMongoDB(ctx context.Context, mongoConfig config.MongoConfig) (*MongoDB, error) {
-	uri := fmt.Sprintf("mongodb://%s:%s@%s", mongoConfig.Username, mongoConfig.Password, mongoConfig.Host)
+	uri := fmt.Sprintf("mongodb://%s:%s@%s", string(mongoConfig.Username), string(mongoConfig.Password), mongoConfig.Host)
 
 	ctx, connectionCancel := context.WithTimeout(ctx, 10*time.Second)
 	defer connectionCancel()

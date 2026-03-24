@@ -1,4 +1,4 @@
-package infra
+package mdb
 
 import (
 	"context"
@@ -45,22 +45,30 @@ func NewMongoDB(ctx context.Context, mongoConfig config.MongoConfig) (*MongoDB, 
 	return &MongoDB{client: client, database: client.Database(mongoConfig.Database)}, nil
 }
 
-func (db *MongoDB) NewCollection(name string) *mongo.Collection {
+func (db *MongoDB) GetCollection(name string) *mongo.Collection {
 	return db.Collection(name)
 }
 
 func SetIndex(ctx context.Context, collection *mongo.Collection, fieldName string) error {
+	return SetIndexWithOptions(ctx, collection, bson.D{{Key: fieldName, Value: 1}}, true, fieldName)
+}
+
+func SetNonUniqueIndex(ctx context.Context, collection *mongo.Collection, fieldName string) error {
+	return SetIndexWithOptions(ctx, collection, bson.D{{Key: fieldName, Value: 1}}, false, fieldName)
+}
+
+func SetIndexWithOptions(ctx context.Context, collection *mongo.Collection, keys bson.D, unique bool, name string) error {
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 
 	idx := mongo.IndexModel{
-		Keys:    bson.D{{Key: fieldName, Value: 1}},
-		Options: options.Index().SetUnique(true).SetName(fieldName),
+		Keys:    keys,
+		Options: options.Index().SetUnique(unique).SetName(name),
 	}
 
 	_, err := collection.Indexes().CreateOne(ctx, idx)
 	if err != nil {
-		return fmt.Errorf("failed to create index %q: %w", fieldName, err)
+		return fmt.Errorf("failed to create index %q: %w", name, err)
 	}
 	return nil
 }
@@ -71,6 +79,10 @@ func (db *MongoDB) Close(ctx context.Context) error {
 
 func (db *MongoDB) Collection(name string) *mongo.Collection {
 	return db.database.Collection(name)
+}
+
+func (db *MongoDB) Database() *mongo.Database {
+	return db.database
 }
 
 func (db *MongoDB) DropAll(ctx context.Context) error {

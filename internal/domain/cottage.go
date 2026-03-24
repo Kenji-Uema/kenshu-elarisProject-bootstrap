@@ -5,6 +5,21 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+type CleaningStatus string
+type KeyHolder string
+
+const (
+	PreparedForGuest CleaningStatus = "prepared_for_guest"
+	DailyCleaned     CleaningStatus = "daily_cleaned"
+	PreparedForSleep CleaningStatus = "prepared_for_sleep"
+	FullyCleaned     CleaningStatus = "fully_cleaned"
+)
+
+const (
+	KeyHolderGuest   KeyHolder = "guest"
+	KeyHolderCottage KeyHolder = "cottage"
+)
+
 type Cottage struct {
 	Id                bson.ObjectID   `bson:"_id,omitempty"`
 	Name              string          `bson:"name"`
@@ -13,12 +28,21 @@ type Cottage struct {
 	Photos            []string        `bson:"photos"`
 	PricePerNight     float32         `bson:"price_per_night"`
 	Bookings          []bson.ObjectID `bson:"bookings"`
+	CurrentGuest      bson.ObjectID   `bson:"current_guest"`
+	CleaningStatus    CleaningStatus  `bson:"cleaning_status"`
 	CurrentlyOccupied bool            `bson:"currently_occupied"`
+	Key               Key             `bson:"key"`
 }
 
 type CottageDetails struct {
 	Description          string `bson:"description"`
+	View                 string `bson:"view"`
 	FurnitureDescription string `bson:"furniture_description"`
 	BathroomDescription  string `bson:"bathroom_description"`
 	AmenitiesDescription string `bson:"amenities_description"`
+}
+
+type Key struct {
+	Number string    `bson:"number"`
+	Holder KeyHolder `bson:"holder"`
 }

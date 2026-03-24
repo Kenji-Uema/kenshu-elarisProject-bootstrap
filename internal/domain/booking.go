@@ -6,9 +6,18 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
+type BookingStatus string
+
+const (
+	Pending   BookingStatus = "pending"
+	Confirmed BookingStatus = "confirmed"
+	Cancelled BookingStatus = "cancelled"
+	Past      BookingStatus = "past"
+)
+
 type Period struct {
-	Start time.Time
-	End   time.Time
+	CheckIn  time.Time `bson:"checkin"`
+	checkOut time.Time `bson:"checkout"`
 }
 
 type Booking struct {
@@ -17,5 +26,5 @@ type Booking struct {
 	NumberOfGuests int           `bson:"number_of_guests"`
 	StayPeriod     Period        `bson:"stay_period"`
 	CottageName    string        `bson:"cottage_name"`
-	Status         string        `bson:"status"`
+	Status         BookingStatus `bson:"status"`
 }

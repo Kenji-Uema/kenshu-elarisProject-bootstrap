@@ -1,4 +1,4 @@
-package infra
+package mdb
 
 import (
 	"fmt"
@@ -10,12 +10,12 @@ import (
 	"github.com/Kenji-Uema/bootstrap/internal/config"
 )
 
-func BootstrapPhotos(photosVolumeConfig config.PhotosVolumeConfig) error {
-	volumePath := filepath.Clean(photosVolumeConfig.Path)
+func BootstrapPhotos(appConfig config.AppConfig) error {
+	volumePath := filepath.Clean(appConfig.PhotosVolume.Path)
 	imagesDir := filepath.Join("resources", "images")
 
 	if volumePath == "" || volumePath == "." || volumePath == ".." || volumePath == string(filepath.Separator) {
-		return fmt.Errorf("refusing to use unsafe volume path: %q", photosVolumeConfig.Path)
+		return fmt.Errorf("refusing to use unsafe volume path: %q", appConfig.PhotosVolume.Path)
 	}
 
 	if err := os.MkdirAll(volumePath, 0o755); err != nil {

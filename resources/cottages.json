@@ -17,7 +17,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "b14276d7-b40b-417e-8de6-042cd1698763",
             "Holder": "cottage"
@@ -41,7 +40,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "67ab90db-a6d6-4f97-8596-a11b9dcbfb8b",
             "Holder": "cottage"
@@ -65,7 +63,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "63daa205-8d50-413b-8b61-a0e5be412ea1",
             "Holder": "cottage"
@@ -89,7 +86,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "935098e2-f660-44ee-98d3-77a030968d86",
             "Holder": "cottage"
@@ -113,7 +109,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "12757b24-c94e-4ee6-b86c-2d6c88427015",
             "Holder": "cottage"
@@ -137,7 +132,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "160058df-d48b-4e5c-94bd-3cdfacf69f49",
             "Holder": "cottage"
@@ -161,7 +155,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "b11db3fc-9bbb-455c-94a4-2e2ff5caf985",
             "Holder": "cottage"
@@ -185,7 +178,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "d55ac63d-4f91-4853-8666-0beaa2cdf1af",
             "Holder": "cottage"
@@ -209,7 +201,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "1a9c5624-5c75-4056-9d1b-6c6be897290b",
             "Holder": "cottage"
@@ -233,7 +224,6 @@
         "PricePerNight": 200.0,
         "Bookings": [],
         "cleaningStatus": "fully_cleaned",
-        "CurrentlyOccupied": false,
         "Key": {
             "Number": "6e5dc348-ce38-4da0-acc5-6f479e7982b0",
             "Holder": "cottage"

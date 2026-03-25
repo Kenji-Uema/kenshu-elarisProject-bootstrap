@@ -21,17 +21,16 @@ const (
 )
 
 type Cottage struct {
-	Id                bson.ObjectID   `bson:"_id,omitempty"`
-	Name              string          `bson:"name"`
-	View              string          `bson:"view"`
-	Details           CottageDetails  `bson:"details"`
-	Photos            []string        `bson:"photos"`
-	PricePerNight     float32         `bson:"price_per_night"`
-	Bookings          []bson.ObjectID `bson:"bookings"`
-	CurrentGuest      bson.ObjectID   `bson:"current_guest"`
-	CleaningStatus    CleaningStatus  `bson:"cleaning_status"`
-	CurrentlyOccupied bool            `bson:"currently_occupied"`
-	Key               Key             `bson:"key"`
+	Id             bson.ObjectID   `bson:"_id,omitempty"`
+	Name           string          `bson:"name"`
+	View           string          `bson:"view"`
+	Details        CottageDetails  `bson:"details"`
+	Photos         []string        `bson:"photos"`
+	PricePerNight  float32         `bson:"price_per_night"`
+	Bookings       []bson.ObjectID `bson:"bookings"`
+	CurrentGuest   bson.ObjectID   `bson:"current_guest"`
+	CleaningStatus CleaningStatus  `bson:"cleaning_status"`
+	Key            Key             `bson:"key"`
 }
 
 type CottageDetails struct {

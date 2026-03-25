@@ -13,6 +13,6 @@ type Guest struct {
 	Surname        string        `bson:"surname"`
 	Email          string        `bson:"email"`
 	BillingAddress string        `bson:"billing_address"`
-	CreatedAt      time.Time     `bson:"created_at"`
-	LastUpdate     time.Time     `bson:"last_update"`
+	CreatedAt      *time.Time    `bson:"created_at"`
+	LastUpdate     *time.Time    `bson:"last_update"`
 }

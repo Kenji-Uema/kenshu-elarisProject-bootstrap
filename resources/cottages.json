@@ -4,7 +4,6 @@
         "view": "seaside",
         "Details": {
             "Description": "<p>\"Barbara Karst\" is a romantic tropical-style cottage inspired by the vibrant bougainvillea that surrounds it. Designed with a balance of natural textures and coastal sophistication, it combines bamboo accents, cream-colored walls, and sunlight filtering through linen curtains. Its atmosphere is serene — ideal for couples or solo travelers seeking a peaceful retreat close to the beach yet immersed in lush greenery. The cottage sits slightly elevated on a small dune, with an open veranda draped in climbing vines, creating natural shade and privacy.</p>",
-
             "View": "<p>Facing the shimmering turquoise coastline, Barbara Karst offers a panoramic seaside view framed by coral bougainvillea vines cascading over whitewashed railings.<br />From the balcony, guests can watch the sunrise over the waves and hear the soft sound of palms swaying in the ocean breeze.</p>",
             "FurnitureDescription": "<p>The interior follows a coastal minimalist aesthetic:</p><p>A handcrafted queen-size canopy bed with driftwood posts and crisp white cotton sheets.</p><p>A woven rattan lounge chair beside a low teak coffee table.</p><p>Built-in bamboo shelving for essentials and a small reading nook with soft cushions.</p><p>Subtle décor elements — ceramic vases, seashell lamps, and local artwork featuring tropical flowers.</p><p>The furniture emphasizes lightness and natural materials to enhance the cottage’s airy, open feel.</p>",
             "BathroomDescription": "<p>The bathroom embraces a spa-like tropical design:</p><p>Rainfall shower with natural stone flooring and open ventilation toward a private enclosed garden.</p><p>Polished concrete sink set on a wooden vanity with a round mirror framed in rope.</p><p>Aromatherapy toiletries featuring coconut, jasmine, and ylang-ylang scents.</p><p>Soft terry towels and a woven basket with amenities arranged hotel-style.</p><p>A narrow skylight above the shower allows natural sunlight to pour in during the day.</p>",
@@ -17,7 +16,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "b14276d7-b40b-417e-8de6-042cd1698763",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Juanita Hatten",
@@ -36,7 +40,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "67ab90db-a6d6-4f97-8596-a11b9dcbfb8b",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Golden Glow",
@@ -55,7 +64,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "63daa205-8d50-413b-8b61-a0e5be412ea1",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Singapore White",
@@ -74,7 +88,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "935098e2-f660-44ee-98d3-77a030968d86",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Raspberry Ice",
@@ -93,7 +112,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "12757b24-c94e-4ee6-b86c-2d6c88427015",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Torch Ginger",
@@ -112,7 +136,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "160058df-d48b-4e5c-94bd-3cdfacf69f49",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Bird of Paradise",
@@ -131,7 +160,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "b11db3fc-9bbb-455c-94a4-2e2ff5caf985",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Passion Flower",
@@ -150,7 +184,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "d55ac63d-4f91-4853-8666-0beaa2cdf1af",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Wild Rose",
@@ -169,7 +208,12 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "1a9c5624-5c75-4056-9d1b-6c6be897290b",
+            "Holder": "cottage"
+        }
     },
     {
         "name": "Lily of the Valley",
@@ -188,6 +232,11 @@
         ],
         "PricePerNight": 200.0,
         "Bookings": [],
-        "CurrentlyOccupied": false
+        "cleaningStatus": "fully_cleaned",
+        "CurrentlyOccupied": false,
+        "Key": {
+            "Number": "6e5dc348-ce38-4da0-acc5-6f479e7982b0",
+            "Holder": "cottage"
+        }
     }
 ]

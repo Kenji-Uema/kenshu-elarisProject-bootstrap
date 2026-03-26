@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/Kenji-Uema/bootstrap/internal/config"
+	"go.opentelemetry.io/contrib/propagators/b3"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -45,6 +46,7 @@ func Init(ctx context.Context, appConfig config.AppConfig, telemetryConfig confi
 
 	otel.SetTextMapPropagator(
 		propagation.NewCompositeTextMapPropagator(
+			b3.New(),
 			propagation.TraceContext{},
 			propagation.Baggage{},
 		),

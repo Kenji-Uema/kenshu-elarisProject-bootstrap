@@ -28,11 +28,20 @@ type AppConfig struct {
 }
 
 type MongoConfig struct {
-	Username    Secret `env:"MONGO_INITDB_ROOT_USERNAME,required"`
-	Password    Secret `env:"MONGO_INITDB_ROOT_PASSWORD,required"`
-	Host        string `env:"MONGO_HOST,required"`
-	Database    string `env:"MONGO_DATABASE,required"`
-	Collections struct {
+	Username                        Secret `env:"MONGO_INITDB_ROOT_USERNAME,required"`
+	Password                        Secret `env:"MONGO_INITDB_ROOT_PASSWORD,required"`
+	Host                            string `env:"MONGO_HOST,required"`
+	Database                        string `env:"MONGO_DATABASE,required"`
+	ReplicaSet                      string `env:"MONGO_REPLICA_SET" envDefault:""`
+	ConnectionTimeoutInSeconds      int    `env:"MONGO_CONNECTION_TIMEOUT_IN_SECONDS" envDefault:"10"`
+	ServerSelectionTimeoutInSeconds int    `env:"MONGO_SERVER_SELECTION_TIMEOUT_IN_SECONDS" envDefault:"10"`
+	PingTimeoutInSeconds            int    `env:"MONGO_PING_TIMEOUT_IN_SECONDS" envDefault:"5"`
+	StartupTimeoutInSeconds         int    `env:"MONGO_STARTUP_TIMEOUT_IN_SECONDS" envDefault:"10"`
+	MaxConnIdleTimeInSeconds        int    `env:"MONGO_MAX_CONN_IDLE_TIME_IN_SECONDS" envDefault:"60"`
+	MaxPoolSize                     uint64 `env:"MONGO_MAX_POOL_SIZE" envDefault:"100"`
+	MinPoolSize                     uint64 `env:"MONGO_MIN_POOL_SIZE" envDefault:"0"`
+	RetryWrites                     bool   `env:"MONGO_RETRY_WRITES" envDefault:"true"`
+	Collections                     struct {
 		CottageCollection string `env:"MONGO_COLLECTION_COTTAGE,required"`
 		GuestCollection   string `env:"MONGO_COLLECTION_GUEST,required"`
 		BookingCollection string `env:"MONGO_COLLECTION_BOOKING,required"`

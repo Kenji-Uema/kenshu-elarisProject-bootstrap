@@ -23,20 +23,32 @@ type MongoDB struct {
 func NewMongoDB(ctx context.Context, mongoConfig config.MongoConfig) (*MongoDB, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s", string(mongoConfig.Username), string(mongoConfig.Password), mongoConfig.Host)
 
-	ctx, connectionCancel := context.WithTimeout(ctx, 10*time.Second)
+	startCtx, connectionCancel := context.WithTimeout(ctx, time.Duration(mongoConfig.StartupTimeoutInSeconds)*time.Second)
 	defer connectionCancel()
 
-	client, err := mongo.Connect(options.Client().ApplyURI(uri))
+	clientOptions := options.Client().
+		ApplyURI(uri).
+		SetConnectTimeout(time.Duration(mongoConfig.ConnectionTimeoutInSeconds) * time.Second).
+		SetServerSelectionTimeout(time.Duration(mongoConfig.ServerSelectionTimeoutInSeconds) * time.Second).
+		SetMaxConnIdleTime(time.Duration(mongoConfig.MaxConnIdleTimeInSeconds) * time.Second).
+		SetMaxPoolSize(mongoConfig.MaxPoolSize).
+		SetMinPoolSize(mongoConfig.MinPoolSize).
+		SetRetryWrites(mongoConfig.RetryWrites)
+	if mongoConfig.ReplicaSet != "" {
+		clientOptions.SetReplicaSet(mongoConfig.ReplicaSet)
+	}
+
+	client, err := mongo.Connect(clientOptions)
 
 	if err != nil {
 		return nil, err
 	}
 
-	databaseContext, databaseCancel := context.WithTimeout(ctx, 5*time.Second)
+	databaseContext, databaseCancel := context.WithTimeout(startCtx, time.Duration(mongoConfig.PingTimeoutInSeconds)*time.Second)
 	defer databaseCancel()
 
 	if err := client.Ping(databaseContext, readpref.Primary()); err != nil {
-		disconnectCtx, disconnectCancel := context.WithTimeout(ctx, 5*time.Second)
+		disconnectCtx, disconnectCancel := context.WithTimeout(startCtx, time.Duration(mongoConfig.PingTimeoutInSeconds)*time.Second)
 		defer disconnectCancel()
 		_ = client.Disconnect(disconnectCtx)
 		return nil, fmt.Errorf("mongo ping failed for URI: %s, error: %w", uri, err)

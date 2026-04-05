@@ -57,11 +57,11 @@ type RabbitMqConfig struct {
 	Host      string `env:"RABBITMQ_HOST,required"`
 	Port      int    `env:"RABBITMQ_PORT,required"`
 	Exchanges struct {
-		Cleaning     ExchangeConfig `envPrefix:"CLEANING_EXCHANGE_"`
-		TimeEvent    ExchangeConfig `envPrefix:"TIME_EVENT_EXCHANGE_"`
-		Invoice      ExchangeConfig `envPrefix:"INVOICE_EXCHANGE_"`
-		Payment      ExchangeConfig `envPrefix:"PAYMENT_EXCHANGE_"`
-		Notification ExchangeConfig `envPrefix:"NOTIFICATION_EXCHANGE_"`
+		Cleaning      ExchangeConfig `envPrefix:"CLEANING_EXCHANGE_"`
+		TimeEvent     ExchangeConfig `envPrefix:"TIME_EVENT_EXCHANGE_"`
+		Invoice       ExchangeConfig `envPrefix:"INVOICE_EXCHANGE_"`
+		Payment       ExchangeConfig `envPrefix:"PAYMENT_EXCHANGE_"`
+		Communication ExchangeConfig `envPrefix:"COMMUNICATION_EXCHANGE_"`
 	}
 }
 

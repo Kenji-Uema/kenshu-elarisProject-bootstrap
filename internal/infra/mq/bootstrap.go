@@ -26,7 +26,7 @@ func BootstrapRabbitmq(ctx context.Context, configs config.Configs) (func(), fun
 		configs.RabbitMqConfig.Exchanges.TimeEvent,
 		configs.RabbitMqConfig.Exchanges.Invoice,
 		configs.RabbitMqConfig.Exchanges.Payment,
-		configs.RabbitMqConfig.Exchanges.Notification,
+		configs.RabbitMqConfig.Exchanges.Communication,
 	}
 
 	for _, exchange := range exchanges {

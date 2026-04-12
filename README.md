@@ -4,7 +4,7 @@ Seeds a fresh environment with shared data and broker topology.
 
 ## Main Docs
 
-See the main project documentation: <https://github.com/Kenji-Uema/kenshu-elarisProject-docs>
+SSee the main project documentation: <https://kenji-uema.github.io/kenshu-elarisProject-docs/>
 
 ## What It Does
 

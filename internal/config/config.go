@@ -20,9 +20,10 @@ type Configs struct {
 }
 
 type AppConfig struct {
-	ServiceName  string `env:"SERVICE_NAME" envDefault:"kenshu-elarisProject-bootstrap"`
-	Version      string `env:"VERSION"`
-	PhotosVolume struct {
+	ServiceName      string `env:"SERVICE_NAME" envDefault:"bootstrap"`
+	Version          string `env:"VERSION" envDefault:"latest"`
+	ServiceNamespace string `env:"SERVICE_NAMESPACE" envDefault:"unknown"`
+	PhotosVolume     struct {
 		Path string `env:"PHOTOS_VOLUME_PATH,required"`
 	}
 }

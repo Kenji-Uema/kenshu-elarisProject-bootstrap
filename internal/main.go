@@ -24,13 +24,14 @@ func exitOnError(errMsg string, err error) {
 
 func main() {
 	startTime := time.Now()
-	slog.SetDefault(log.NewLogger())
 	baseCtx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	slog.Info("Bootstrap starting")
 	configs, err := config.LoadConfigs()
 	exitOnError("config load", err)
+
+	slog.SetDefault(log.NewLogger(configs.AppConfig))
+	slog.Info("Bootstrap starting")
 
 	telemetryShutdown, err := telemetry.Init(baseCtx, configs.AppConfig, configs.TelemetryConfig)
 	exitOnError("telemetry init", err)
